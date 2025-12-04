@@ -1,10 +1,4 @@
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import {
   ShoppingBag,
   Users,
@@ -20,14 +14,7 @@ interface MenuItem {
   id: string;
   title: string;
   description: string;
-  icon:
-    | "shopping"
-    | "users"
-    | "package"
-    | "chart"
-    | "weather"
-    | "settings"
-    | "help";
+  icon: "shopping" | "users" | "package" | "chart" | "weather" | "settings" | "help";
   action?: string;
 }
 
@@ -57,21 +44,19 @@ export function MenuCard({ title, description, items }: MenuCardProps) {
         </CardHeader>
       )}
       <CardContent>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
           {items.map((item) => {
             const Icon = iconMap[item.icon];
             return (
               <div
                 key={item.id}
-                className="p-4 rounded-lg border flex flex-col items-start gap-2 hover:bg-accent transition-colors"
+                className="flex flex-col items-start gap-2 rounded-lg border p-4 transition-colors hover:bg-accent"
               >
                 <div className="flex items-center gap-2">
-                  <Icon className="w-5 h-5 text-primary" />
+                  <Icon className="h-5 w-5 text-primary" />
                   <span className="font-medium">{item.title}</span>
                 </div>
-                <span className="text-xs text-muted-foreground text-left">
-                  {item.description}
-                </span>
+                <span className="text-left text-xs text-muted-foreground">{item.description}</span>
               </div>
             );
           })}

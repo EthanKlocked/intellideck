@@ -47,24 +47,16 @@ export function WeatherCard({
       className={`w-full max-w-sm bg-gradient-to-br ${weatherBg[condition]} border-none shadow-lg`}
     >
       <CardHeader className="pb-2">
-        <CardTitle className="text-lg font-medium text-muted-foreground">
-          {city}
-        </CardTitle>
+        <CardTitle className="text-lg font-medium text-muted-foreground">{city}</CardTitle>
       </CardHeader>
       <CardContent>
         <div className="flex items-center justify-between">
           <div>
             <div className="text-5xl font-bold">{temperature}°</div>
-            <div className="text-sm text-muted-foreground mt-1">
-              습도 {humidity}%
-            </div>
-            {description && (
-              <div className="text-sm mt-2 text-foreground/80">
-                {description}
-              </div>
-            )}
+            <div className="mt-1 text-sm text-muted-foreground">습도 {humidity}%</div>
+            {description && <div className="mt-2 text-sm text-foreground/80">{description}</div>}
           </div>
-          <Icon className={`w-20 h-20 ${weatherColors[condition]}`} />
+          <Icon className={`h-20 w-20 ${weatherColors[condition]}`} />
         </div>
       </CardContent>
     </Card>

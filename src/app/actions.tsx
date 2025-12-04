@@ -19,8 +19,8 @@ import {
 // Loading component
 function LoadingSpinner() {
   return (
-    <div className="flex items-center gap-2 text-muted-foreground p-4">
-      <div className="w-4 h-4 border-2 border-primary border-t-transparent rounded-full animate-spin" />
+    <div className="flex items-center gap-2 p-4 text-muted-foreground">
+      <div className="h-4 w-4 animate-spin rounded-full border-2 border-primary border-t-transparent" />
       <span>로딩 중...</span>
     </div>
   );
@@ -63,13 +63,7 @@ export async function chat(userMessage: string) {
         category: z.string().optional().describe("카테고리 필터"),
         limit: z.number().optional().describe("표시할 상품 수"),
       }),
-      generate: async function* ({
-        category,
-        limit = 6,
-      }: {
-        category?: string;
-        limit?: number;
-      }) {
+      generate: async function* ({ category, limit = 6 }: { category?: string; limit?: number }) {
         yield <LoadingSpinner />;
         let products = dummyProducts;
         if (category) {
@@ -83,7 +77,7 @@ export async function chat(userMessage: string) {
         return (
           <div className="space-y-4">
             <h2 className="text-xl font-semibold">{title}</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {filteredProducts.map((product) => (
                 <ProductCard key={product.id} {...product} />
               ))}
@@ -109,20 +103,10 @@ export async function chat(userMessage: string) {
     showMenu: {
       description: "사용 가능한 기능 메뉴를 보여줍니다",
       parameters: z.object({
-        context: z
-          .enum(["discovery", "help"])
-          .optional()
-          .describe("메뉴 컨텍스트"),
+        context: z.enum(["discovery", "help"]).optional().describe("메뉴 컨텍스트"),
       }),
-      generate: async function* ({
-        context = "discovery",
-      }: {
-        context?: "discovery" | "help";
-      }) {
-        const items =
-          context === "help"
-            ? menuItems.help
-            : menuItems.discovery.customer;
+      generate: async function* ({ context = "discovery" }: { context?: "discovery" | "help" }) {
+        const items = context === "help" ? menuItems.help : menuItems.discovery.customer;
         return (
           <MenuCard
             title={context === "help" ? "도움말" : "무엇을 도와드릴까요?"}
@@ -139,13 +123,8 @@ export async function chat(userMessage: string) {
     showChart: {
       description: "차트를 보여줍니다",
       parameters: z.object({
-        chartType: z
-          .enum(["line", "bar", "pie"])
-          .optional()
-          .describe("차트 타입"),
-        dataType: z
-          .enum(["sales", "orders", "categories"])
-          .describe("데이터 종류"),
+        chartType: z.enum(["line", "bar", "pie"]).optional().describe("차트 타입"),
+        dataType: z.enum(["sales", "orders", "categories"]).describe("데이터 종류"),
       }),
       generate: async function* ({
         chartType = "bar",
@@ -161,9 +140,7 @@ export async function chat(userMessage: string) {
           orders: "요일별 주문 현황",
           categories: "카테고리별 매출",
         };
-        return (
-          <ChartCard title={titles[dataType]} data={data} type={chartType} />
-        );
+        return <ChartCard title={titles[dataType]} data={data} type={chartType} />;
       },
     },
     showTestButton: {
@@ -171,38 +148,32 @@ export async function chat(userMessage: string) {
       parameters: z.object({
         buttonText: z.string().optional().describe("버튼에 표시할 텍스트"),
       }),
-      generate: async function* ({
-        buttonText = "클릭해보세요",
-      }: {
-        buttonText?: string;
-      }) {
+      generate: async function* ({ buttonText = "클릭해보세요" }: { buttonText?: string }) {
         // 순수 HTML + data attribute 방식
         // 클라이언트에서 이벤트 위임으로 처리
         return (
-          <div className="p-4 space-y-4 rounded-lg border bg-card">
+          <div className="space-y-4 rounded-lg border bg-card p-4">
             <h3 className="font-semibold">인터랙티브 버튼 테스트</h3>
-            <p className="text-sm text-muted-foreground">
-              아래 버튼을 클릭하면 알림이 표시됩니다:
-            </p>
+            <p className="text-sm text-muted-foreground">아래 버튼을 클릭하면 알림이 표시됩니다:</p>
             <div className="flex gap-3">
               <button
                 data-action="alert"
                 data-message="버튼이 클릭되었습니다! 🎉"
-                className="px-4 py-2 rounded-md font-medium bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
+                className="rounded-md bg-primary px-4 py-2 font-medium text-primary-foreground transition-colors hover:bg-primary/90"
               >
                 {buttonText}
               </button>
               <button
                 data-action="alert"
                 data-message="보조 버튼 클릭!"
-                className="px-4 py-2 rounded-md font-medium bg-secondary text-secondary-foreground hover:bg-secondary/90 transition-colors"
+                className="rounded-md bg-secondary px-4 py-2 font-medium text-secondary-foreground transition-colors hover:bg-secondary/90"
               >
                 보조 버튼
               </button>
               <button
                 data-action="alert"
                 data-message="아웃라인 버튼!"
-                className="px-4 py-2 rounded-md font-medium border border-input bg-background hover:bg-accent hover:text-accent-foreground transition-colors"
+                className="rounded-md border border-input bg-background px-4 py-2 font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
               >
                 아웃라인
               </button>

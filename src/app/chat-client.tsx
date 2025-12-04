@@ -79,40 +79,36 @@ export function ChatClient() {
   };
 
   return (
-    <div className="flex flex-col h-screen bg-background">
+    <div className="flex h-screen flex-col bg-background">
       <header className="border-b p-4">
         <h1 className="text-xl font-semibold">IntelliDeck AI</h1>
-        <p className="text-sm text-muted-foreground">
-          AI 어시스턴트와 대화하세요
-        </p>
+        <p className="text-sm text-muted-foreground">AI 어시스턴트와 대화하세요</p>
       </header>
 
       <ScrollArea className="flex-1">
-        <div className="p-4 space-y-4">
+        <div className="space-y-4 p-4">
           {messages.length === 0 && (
-            <div className="text-center text-muted-foreground py-8">
-              <Bot className="w-12 h-12 mx-auto mb-4 opacity-50" />
+            <div className="py-8 text-center text-muted-foreground">
+              <Bot className="mx-auto mb-4 h-12 w-12 opacity-50" />
               <p>안녕하세요! 무엇을 도와드릴까요?</p>
-              <p className="text-sm mt-2">
-                날씨, 상품, 주문 내역 등을 물어보세요.
-              </p>
+              <p className="mt-2 text-sm">날씨, 상품, 주문 내역 등을 물어보세요.</p>
             </div>
           )}
 
           {messages.map((message) => (
             <div key={message.id} className="message-enter">
               <div className="flex items-start gap-3">
-                <Avatar className="w-8 h-8">
+                <Avatar className="h-8 w-8">
                   <AvatarFallback>
                     {message.role === "user" ? (
-                      <User className="w-4 h-4" />
+                      <User className="h-4 w-4" />
                     ) : (
-                      <Bot className="w-4 h-4" />
+                      <Bot className="h-4 w-4" />
                     )}
                   </AvatarFallback>
                 </Avatar>
                 <div className="flex-1">
-                  <p className="text-sm font-medium mb-1">
+                  <p className="mb-1 text-sm font-medium">
                     {message.role === "user" ? "You" : "AI Assistant"}
                   </p>
                   <div className="text-sm">
@@ -130,7 +126,7 @@ export function ChatClient() {
 
           {isLoading && (
             <div className="flex items-center gap-2 text-muted-foreground">
-              <Loader2 className="w-4 h-4 animate-spin" />
+              <Loader2 className="h-4 w-4 animate-spin" />
               <span>응답 생성 중...</span>
             </div>
           )}
@@ -148,7 +144,7 @@ export function ChatClient() {
             disabled={isLoading}
           />
           <Button type="submit" disabled={isLoading || !input.trim()}>
-            <Send className="w-4 h-4" />
+            <Send className="h-4 w-4" />
           </Button>
         </form>
       </div>

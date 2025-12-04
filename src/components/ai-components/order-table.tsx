@@ -3,12 +3,7 @@ import { Badge } from "@/components/ui/badge";
 import { formatCurrency, formatDateTime } from "@/lib/utils";
 import { Package, Truck, CheckCircle, XCircle, Clock } from "lucide-react";
 
-type OrderStatus =
-  | "PENDING"
-  | "CONFIRMED"
-  | "SHIPPED"
-  | "DELIVERED"
-  | "CANCELLED";
+type OrderStatus = "PENDING" | "CONFIRMED" | "SHIPPED" | "DELIVERED" | "CANCELLED";
 
 interface OrderItem {
   productName: string;
@@ -34,13 +29,7 @@ const statusConfig: Record<
   OrderStatus,
   {
     label: string;
-    variant:
-      | "default"
-      | "secondary"
-      | "destructive"
-      | "outline"
-      | "success"
-      | "warning";
+    variant: "default" | "secondary" | "destructive" | "outline" | "success" | "warning";
     icon: React.ElementType;
   }
 > = {
@@ -67,22 +56,18 @@ export function OrderTable({ orders, title }: OrderTableProps) {
       {title && <h2 className="text-xl font-semibold">{title}</h2>}
       <div className="space-y-3">
         {orders.map((order) => {
-          const {
-            label,
-            variant,
-            icon: StatusIcon,
-          } = statusConfig[order.status];
+          const { label, variant, icon: StatusIcon } = statusConfig[order.status];
 
           return (
             <Card key={order.id} className="overflow-hidden">
-              <CardHeader className="pb-2 bg-muted/50">
+              <CardHeader className="bg-muted/50 pb-2">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
-                    <CardTitle className="text-sm font-mono">
+                    <CardTitle className="font-mono text-sm">
                       #{order.id.slice(-8).toUpperCase()}
                     </CardTitle>
                     <Badge variant={variant}>
-                      <StatusIcon className="w-3 h-3 mr-1" />
+                      <StatusIcon className="mr-1 h-3 w-3" />
                       {label}
                     </Badge>
                   </div>
@@ -103,7 +88,7 @@ export function OrderTable({ orders, title }: OrderTableProps) {
                       </span>
                     </div>
                   ))}
-                  <div className="border-t pt-2 mt-2 flex justify-between font-semibold">
+                  <div className="mt-2 flex justify-between border-t pt-2 font-semibold">
                     <span>총액</span>
                     <span>{formatCurrency(order.totalAmount)}</span>
                   </div>

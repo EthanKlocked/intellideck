@@ -1,10 +1,4 @@
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 
 type ChartType = "line" | "bar" | "pie";
 
@@ -55,11 +49,9 @@ export function ChartCard({
               <span className="text-muted-foreground">{item.name}</span>
               <span className="font-medium">{value.toLocaleString()}</span>
             </div>
-            <div className="h-3 bg-muted rounded-full overflow-hidden">
+            <div className="h-3 overflow-hidden rounded-full bg-muted">
               <div
-                className={`h-full rounded-full ${
-                  colors[index % colors.length]
-                }`}
+                className={`h-full rounded-full ${colors[index % colors.length]}`}
                 style={{ width: `${percentage}%` }}
               />
             </div>
@@ -78,13 +70,9 @@ export function ChartCard({
           const percentage = ((value / total) * 100).toFixed(1);
           return (
             <div key={item.name} className="flex items-center gap-2">
-              <div
-                className={`w-3 h-3 rounded-full ${
-                  colors[index % colors.length]
-                }`}
-              />
-              <div className="flex-1 min-w-0">
-                <div className="text-sm font-medium truncate">{item.name}</div>
+              <div className={`h-3 w-3 rounded-full ${colors[index % colors.length]}`} />
+              <div className="min-w-0 flex-1">
+                <div className="truncate text-sm font-medium">{item.name}</div>
                 <div className="text-xs text-muted-foreground">
                   {value.toLocaleString()} ({percentage}%)
                 </div>
@@ -94,7 +82,7 @@ export function ChartCard({
         })}
       </div>
       {/* Visual bar representation */}
-      <div className="h-6 rounded-full overflow-hidden flex">
+      <div className="flex h-6 overflow-hidden rounded-full">
         {data.map((item, index) => {
           const value = item[dataKey] as number;
           const percentage = (value / total) * 100;
@@ -118,33 +106,25 @@ export function ChartCard({
         {data.map((item, index) => {
           const value = item[dataKey] as number;
           const percentage = (value / maxValue) * 100;
-          const prevValue =
-            index > 0 ? (data[index - 1][dataKey] as number) : value;
+          const prevValue = index > 0 ? (data[index - 1][dataKey] as number) : value;
           const trend = value > prevValue ? "↑" : value < prevValue ? "↓" : "→";
           const trendColor =
             value > prevValue
               ? "text-green-500"
               : value < prevValue
-              ? "text-red-500"
-              : "text-muted-foreground";
+                ? "text-red-500"
+                : "text-muted-foreground";
 
           return (
-            <div
-              key={item.name}
-              className="flex items-center gap-3 p-2 rounded-lg bg-muted/50"
-            >
-              <span className="text-sm text-muted-foreground w-16">
-                {item.name}
-              </span>
-              <div className="flex-1 h-2 bg-muted rounded-full overflow-hidden">
+            <div key={item.name} className="flex items-center gap-3 rounded-lg bg-muted/50 p-2">
+              <span className="w-16 text-sm text-muted-foreground">{item.name}</span>
+              <div className="h-2 flex-1 overflow-hidden rounded-full bg-muted">
                 <div
-                  className="h-full bg-blue-500 rounded-full"
+                  className="h-full rounded-full bg-blue-500"
                   style={{ width: `${percentage}%` }}
                 />
               </div>
-              <span className="font-medium text-sm w-20 text-right">
-                {value.toLocaleString()}
-              </span>
+              <span className="w-20 text-right text-sm font-medium">{value.toLocaleString()}</span>
               <span className={`text-sm ${trendColor}`}>{trend}</span>
             </div>
           );

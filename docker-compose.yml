@@ -9,7 +9,6 @@ services:
     environment:
       - DATABASE_URL=postgresql://intellideck:intellideck@db:5432/intellideck
       - GOOGLE_GENERATIVE_AI_API_KEY=${GOOGLE_GENERATIVE_AI_API_KEY}
-      - NODE_ENV=development
     depends_on:
       db:
         condition: service_healthy

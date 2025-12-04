@@ -9,11 +9,7 @@ export const metadata: Metadata = {
   description: "AI-powered interactive UI generation platform",
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="ko" className="dark">
       <body className={inter.className}>{children}</body>

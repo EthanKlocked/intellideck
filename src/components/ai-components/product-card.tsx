@@ -1,9 +1,4 @@
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-} from "@/components/ui/card";
+import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Package } from "lucide-react";
 import { formatCurrency } from "@/lib/utils";
@@ -30,30 +25,22 @@ export function ProductCard({
   const isLowStock = stock > 0 && stock <= 5;
 
   return (
-    <Card className="w-full max-w-xs overflow-hidden hover:shadow-lg transition-shadow">
-      <div className="aspect-square bg-muted relative">
+    <Card className="w-full max-w-xs overflow-hidden transition-shadow hover:shadow-lg">
+      <div className="relative aspect-square bg-muted">
         {imageUrl ? (
-          <img
-            src={imageUrl}
-            alt={name}
-            className="object-cover w-full h-full"
-          />
+          <img src={imageUrl} alt={name} className="h-full w-full object-cover" />
         ) : (
-          <div className="w-full h-full flex items-center justify-center">
-            <Package className="w-16 h-16 text-muted-foreground/50" />
+          <div className="flex h-full w-full items-center justify-center">
+            <Package className="h-16 w-16 text-muted-foreground/50" />
           </div>
         )}
-        <Badge className="absolute top-2 right-2" variant="secondary">
+        <Badge className="absolute right-2 top-2" variant="secondary">
           {category}
         </Badge>
       </div>
       <CardHeader className="pb-2">
-        <h3 className="font-semibold text-lg line-clamp-1">{name}</h3>
-        {description && (
-          <p className="text-sm text-muted-foreground line-clamp-2">
-            {description}
-          </p>
-        )}
+        <h3 className="line-clamp-1 text-lg font-semibold">{name}</h3>
+        {description && <p className="line-clamp-2 text-sm text-muted-foreground">{description}</p>}
       </CardHeader>
       <CardContent className="pb-2">
         <div className="flex items-center justify-between">
