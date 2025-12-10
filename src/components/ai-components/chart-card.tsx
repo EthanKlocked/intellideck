@@ -35,6 +35,22 @@ export function ChartCard({
   dataKey = "value",
   colors = defaultColors,
 }: ChartCardProps) {
+  if (!data || data.length === 0) {
+    return (
+      <Card className="w-full">
+        <CardHeader>
+          <CardTitle>{title}</CardTitle>
+          {description && <CardDescription>{description}</CardDescription>}
+        </CardHeader>
+        <CardContent>
+          <div className="flex h-32 items-center justify-center text-muted-foreground">
+            데이터가 없습니다.
+          </div>
+        </CardContent>
+      </Card>
+    );
+  }
+
   const maxValue = Math.max(...data.map((d) => d[dataKey] as number));
   const total = data.reduce((sum, d) => sum + (d[dataKey] as number), 0);
 

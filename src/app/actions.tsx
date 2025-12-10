@@ -128,19 +128,20 @@ export async function chat(userMessage: string) {
       }),
       generate: async function* ({
         chartType = "bar",
-        dataType,
+        dataType = "sales",
       }: {
         chartType?: "line" | "bar" | "pie";
-        dataType: "sales" | "orders" | "categories";
+        dataType?: "sales" | "orders" | "categories";
       }) {
         yield <LoadingSpinner />;
-        const data = dummyChartData[dataType];
+        const validDataType = dataType && dummyChartData[dataType] ? dataType : "sales";
+        const data = dummyChartData[validDataType];
         const titles: Record<string, string> = {
           sales: "월별 매출 추이",
           orders: "요일별 주문 현황",
           categories: "카테고리별 매출",
         };
-        return <ChartCard title={titles[dataType]} data={data} type={chartType} />;
+        return <ChartCard title={titles[validDataType]} data={data} type={chartType} />;
       },
     },
     showTestButton: {
